@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-8">
+<title>សារស្រឡាញ់</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Battambang&display=swap'); /* Khmer font */
+
+    body {
+        margin: 0;
+        height: 100vh;
+        background-color: darkgreen;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Battambang', sans-serif;
+    }
+
+    #hearts {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .heart {
+        position: absolute;
+        font-size: 36px;
+        color: red;
+        user-select: none;
+    }
+
+    #message {
+        position: relative;
+        text-align: center;
+        font-size: 32px;
+        color: white;
+        width: 90%;
+    }
+</style>
+</head>
+<body>
+
+<div id="hearts"></div>
+<div id="message"></div>
+
+<script>
+    const messageText = "ជិតដល់ថ្ងៃបុណ្យណូអែលហើយបងចង់ប្រាប់អូនថាបងស្រឡាញ់អូន ម៉េងអ៊ី Love you cherm​ thanks you for taking care of this little boy ពីបង​ កាលិប​";
+    const messageDiv = document.getElementById('message');
+
+    let index = 0;
+
+    function typeLetter() {
+        if(index < messageText.length) {
+            messageDiv.textContent += messageText[index];
+            index++;
+            setTimeout(typeLetter, 100); // adjust speed here
+        }
+    }
+
+    typeLetter();
+
+    // Hearts animation
+    const heartsContainer = document.getElementById('hearts');
+    const heartPositions = [
+        {x: 150, y: 100},
+        {x: 400, y: 50},
+        {x: 650, y: 100}
+    ];
+
+    heartPositions.forEach(pos => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = pos.x + 'px';
+        heart.style.top = pos.y + 'px';
+        heart.textContent = '❤';
+        heartsContainer.appendChild(heart);
+        let direction = 1;
+        setInterval(() => {
+            let currentTop = parseFloat(heart.style.top);
+            if (currentTop <= pos.y - 10) direction = 1;
+            if (currentTop >= pos.y + 10) direction = -1;
+            heart.style.top = (currentTop + direction) + 'px';
+        }, 50);
+    });
+</script>
+
+</body>
+</html>
